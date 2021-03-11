@@ -1,0 +1,7 @@
+{
+  "domain": "prashdev.us.auth0.com",
+  "clientId": "ohi7tU1hn3fa04m8jeEPje3WiT2l2xyf",
+  "audience": "https://prashdev.us.auth0.com/api/v2/",
+  "apiUri": "http://localhost:3001",
+  "appUri": "http://localhost:4200"
+}
