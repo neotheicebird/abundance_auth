@@ -23,10 +23,12 @@ The sample needs to be configured with your Auth0 domain and client ID in order 
 ```
 
 I have forcefully added `auth_config.json` with configuration variables for `prashdev` environment (Prashanth's environment) to git. Please remove this from revision control when you populate your environment.
- 
+
 # Run dev server
 
 `npm run dev`
+
+or `ng serve`
 
 would serve the dev server to url http://localhost:4200
 
