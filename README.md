@@ -9,6 +9,7 @@ This app is a simple Angular application that does signup, login and has user pr
 3. To get started with default Auth0 configuration, first we need to create an application inside auth0. To do that, click on applications > create Application. Name the application, say "Abundance", select SPA as the type (Single page application), and click create.
 4. Create a file name "auth_config.json" based of auth_config.json.example. From the "basic information" section shown after creating new application, Copy the `client Id` and `Domain` of the application created into auth_config.json file across respective fields.
 5. Click on APIs tab in Auth0 and copy the "audience" value into respective field in auth_config.json.
+6. Please make sure "allowed logout urls" and "allowed web origins" field in Auth0.com has the URL the app is deployed to, For development please add `http://localhost:4200/` to it.
 
 ## Configuration
 
