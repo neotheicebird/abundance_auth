@@ -5,6 +5,7 @@ import { domain, clientId, audience, apiUri } from '../../auth_config.json';
 
 export const environment = {
   production: false,
+  stripe_key: "pk_test_WkkwNMjim6o9rJCmrIDdgMte",
   auth: {
     domain,
     clientId,
