@@ -1,0 +1,22 @@
+{
+    "usd": [{
+        "value": 1,
+        "price_id": "price_1IYr3MAYWGxa1zpfN9nznim5"
+    },
+    {
+        "value": 100001,
+        "price_id": "price_1IZW8ZAYWGxa1zpf6h9etG72"
+    }],
+    "gbp": [{
+        "value": 1,
+        "price_id": "price_1IYr3MAYWGxa1zpf4sVaNw9o"
+    }],
+    "eur": [{
+        "value": 1,
+        "price_id": "price_1IYr3MAYWGxa1zpfpzbjmKd6"
+    }],
+    "cad": [{
+        "value": 1,
+        "price_id": "price_1IYr3MAYWGxa1zpfT8M8WGfr"
+    }]
+}

@@ -20,6 +20,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { NotifierModule } from 'angular-notifier';
+import { CookieModule } from 'ngx-cookie';
 
 
 import {FormsModule} from '@angular/forms';
@@ -52,6 +53,7 @@ import {FormsModule} from '@angular/forms';
         ...env.httpInterceptor,
       },
     }),
+    CookieModule.forRoot()
   ],
   providers: [
     {
