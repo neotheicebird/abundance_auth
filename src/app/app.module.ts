@@ -49,6 +49,7 @@ import {FormsModule} from '@angular/forms';
     NotifierModule,
     AuthModule.forRoot({
       ...env.auth,
+      scope: 'read:current_user create:current_user_metadata update:current_user_metadata',
       httpInterceptor: {
         ...env.httpInterceptor,
       },

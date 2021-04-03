@@ -102,6 +102,7 @@ export const environment = {
 If you have already added a notifier or use a different notification mechanism, skip this step.
 
 Do not forget to add the line `@import "~angular-notifier/styles";` to `/src/styles.scss`
+
 8. Testing:
 
 For test publishable stripe key, the following card numbers can be used:
@@ -112,3 +113,6 @@ For test publishable stripe key, the following card numbers can be used:
 For more test cards and to test other types of cards, goto [https://stripe.com/docs/testing](https://stripe.com/docs/testing)
 
 Pressing "<- Back" button on checkout page leads to "payment failure" condition handled in our angular app.
+
+9. We would like to add the user's donation payment status to the user metadata in Auth0. To do that we are going to call Auth0's management API by sending the `id_token` along with API calls. Some configuration steps are already added to `app.module.ts`. To add that to your project, follow [https://auth0.com/docs/quickstart/spa/angular/02-calling-an-api](https://auth0.com/docs/quickstart/spa/angular/02-calling-an-api). Once done, please add the following environment variables to `environment.ts` (or `environment.prod.ts`)
+

@@ -4,7 +4,7 @@
     </div>
 
     <div *ngIf="Stage === paymentStage.SelectPayment">
-        <p>SelectPayment</p>
+        <p>Select Payment</p>
         <select ng-model="currency">
             <option *ngFor="let c of currencies" [value]="c">{{c}}</option>
         </select>
@@ -39,7 +39,7 @@
     </div>
 
     <div *ngIf="Stage === paymentStage.Paid">
-        <p>Paid</p>
+        <p>You have access to all our content</p>
     </div>
 </div>
 
