@@ -42,27 +42,73 @@ Once you can verify that the login/signup functionality works well, its time to 
 To setup Mailchimp account for testing, Please follow the following steps:
 
 1. Go to [https://mailchimp.com/](https://mailchimp.com/) and signup for a new account. Activate the account from the link sent to your email.
-2. To get the API keys click on Profile picture > Account > Extras > API Keys [OR] Try to load this URL in your browser [https://us1.admin.mailchimp.com/account/api/](https://us1.admin.mailchimp.com/account/api/). Click on `create a key` to create one and keep a copy ready for later use.
 
+2. To get the API keys click on Profile picture > Account > Extras > API Keys [OR] Try to load this URL in your browser [https://us1.admin.mailchimp.com/account/api/](https://us1.admin.mailchimp.com/account/api/). Click on `create a key` to create one and keep a copy ready for later use. This is your `apiKey`. If the api url shown to you starts with `us1` after the https:// section, then `us1` is your `serverPrefix`.
 
+3. We need the audience ID (aka listId) to which the new signup information are added. To get this go to Audience > All Contacts > Settings > Audience name and defaults. Here you will find it.
+
+Ref: [https://mailchimp.com/help/find-audience-id/](https://mailchimp.com/help/find-audience-id/)
+
+4. We need to create an Auth0 hook, which will add email from new signup to mailchimp email list. To do that, go to [Auth0.com](https://auth0.com/), and under `Auth0 Pipeline` click on hooks. Create a new hook under topic "Post User Registration". Name the hook, say "new-user-to-mailchimp".
+
+5. In the new hook created, click on edit icon. In the editor that is shown, we can paste the following code after replacing the environment variables `apiKey, serverPrefix, listId` with your values.
+
+6. That's it. Now we are set. Please try a new user registration from your angular app, the email id should get added to the list.
 
 ```javascript
-const client = require("mailchimp-marketing");
+/**
+@param {object} user - The user being created
+@param {string} user.id - user id
+@param {string} user.tenant - Auth0 tenant name
+@param {string} user.username - user name
+@param {string} user.email - email
+@param {boolean} user.emailVerified - is e-mail verified?
+@param {string} user.phoneNumber - phone number
+@param {boolean} user.phoneNumberVerified - is phone number verified?
+@param {object} user.user_metadata - user metadata
+@param {object} user.app_metadata - application metadata
+@param {object} context - Auth0 connection and other context info
+@param {string} context.requestLanguage - language of the client agent
+@param {object} context.connection - information about the Auth0 connection
+@param {object} context.connection.id - connection id
+@param {object} context.connection.name - connection name
+@param {object} context.connection.tenant - connection tenant
+@param {object} context.webtask - webtask context
+@param {function} cb - function (error, response)
+*/
+module.exports = function (user, context, cb) {
+  let apiKey = "d2425ace59980df97023d247e008dff4";
+  let serverPrefix = "us1";
+  let listId = "00b65f2190";
+  
+  console.log(user)
+  
+  const client = require("@mailchimp/mailchimp_marketing");
 
-client.setConfig({
-  apiKey: "d2425ace59980df97023d247e008dff4",
-  server: "us1",
-});
-
-const run = async () => {
-  const response = await client.lists.addListMember("1307978", {
-    email_address: "Ebba9@gmail.com",
-    status: "pending",
+  client.setConfig({
+    apiKey: apiKey,
+    server: serverPrefix,
   });
-  console.log(response);
+
+  const run = async () => {
+    const response = await client.lists.addListMember(listId, {
+      email_address: user["email"],
+      status: "subscribed",
+    }).then((resp) => {
+        console.log(
+            `Successfully added contact as an audience member. 
+            The contact's id is ${resp.id}.`
+        );
+    }).catch((err) => console.log(err));
+    console.log(response);
+  };
+
+  run();
+
+  // Perform any asynchronous actions, e.g. send notification to Slack.
+  cb();
 };
 
-run();
 ```
 
 # Stripe Integration
