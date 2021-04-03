@@ -14,10 +14,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { HomeContentComponent } from './components/home-content/home-content.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { DonateComponent } from './components/donate/donate.component';
 import { ExternalApiComponent } from './pages/external-api/external-api.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
+import { NotifierModule } from 'angular-notifier';
+import { CookieModule } from 'ngx-cookie';
+
+
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +35,7 @@ import { environment as env } from '../environments/environment';
     HeroComponent,
     HomeContentComponent,
     LoadingComponent,
+    DonateComponent,
     ExternalApiComponent,
   ],
   imports: [
@@ -38,12 +45,16 @@ import { environment as env } from '../environments/environment';
     NgbModule,
     HighlightModule,
     FontAwesomeModule,
+    FormsModule,
+    NotifierModule,
     AuthModule.forRoot({
       ...env.auth,
+      scope: 'read:current_user create:current_user_metadata update:current_user_metadata',
       httpInterceptor: {
         ...env.httpInterceptor,
       },
     }),
+    CookieModule.forRoot()
   ],
   providers: [
     {

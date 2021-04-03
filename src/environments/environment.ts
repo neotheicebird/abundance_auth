@@ -5,6 +5,7 @@ import { domain, clientId, audience, apiUri } from '../../auth_config.json';
 
 export const environment = {
   production: false,
+  stripe_key: "pk_test_WkkwNMjim6o9rJCmrIDdgMte",
   auth: {
     domain,
     clientId,
@@ -12,7 +13,19 @@ export const environment = {
     redirectUri: window.location.origin,
   },
   httpInterceptor: {
-    allowedList: [`${apiUri}/*`],
+    allowedList: [
+      {
+        // Match any request that starts 'https://prashdev.us.auth0.com/api/v2/' (note the asterisk)
+        uri: audience + '*',
+        tokenOptions: {
+          // The attached token should target this audience
+          audience: audience,
+
+          // The attached token should have these scopes
+          scope: 'read:current_user create:current_user_metadata update:current_user_metadata'
+        }
+      }
+    ]
   },
 };
 
